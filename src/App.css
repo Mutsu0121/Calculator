@@ -1,0 +1,30 @@
+#root {
+  width: 250px;
+  margin: 40px auto;
+}
+
+.resultValue {
+  text-align: end;
+  height: 100%;
+  font-size: 30px;
+  padding-right: 15px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border: none;
+  font-size: 25px;
+  padding: 0;
+}
+
+.ope {
+  display: flex;
+  flex-direction: column-reverse;
+}

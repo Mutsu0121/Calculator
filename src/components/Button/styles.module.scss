@@ -1,0 +1,102 @@
+@import '@/_variables.scss';
+
+.button {
+  align-items: center;
+  width: 150px;
+  height: 48px;
+  cursor: pointer;
+  border-radius: $RADIUS_8PX;
+  outline: none;
+  box-shadow: $SHADOW_1;
+  transition: background-color $TRANSITION_DURATION_2, transform $TRANSITION_DURATION_2,
+    box-shadow $TRANSITION_DURATION_2;
+  transform: translate(0, 0);
+  @include active {
+    box-shadow: $SHADOW_0;
+    transform: translate(1px, 2px);
+  }
+  @include disabled {
+    cursor: not-allowed;
+  }
+}
+
+.primary {
+  background-color: $COLOR_K02;
+  @include hover {
+    background-color: $COLOR_K04;
+  }
+  @include focus {
+    background-color: $COLOR_K04;
+  }
+  @include disabled {
+    color: $COLOR_K07;
+    background-color: $COLOR_K03;
+  }
+}
+
+.secondary {
+  color: $COLOR_K00;
+  background-color: $COLOR_B06;
+  @include focus {
+    background-color: $COLOR_B08;
+  }
+  @include hover {
+    background-color: $COLOR_B08;
+  }
+  @include disabled {
+    background-color: $COLOR_B02;
+  }
+}
+
+.tertiary {
+  background-color: $COLOR_K06;
+  @include focus {
+    background-color: $COLOR_K07;
+  }
+  @include hover {
+    background-color: $COLOR_K07;
+  }
+  @include disabled {
+    color: $COLOR_K07;
+    background-color: $COLOR_K03;
+  }
+}
+
+.extraSmall {
+  width: 48px;
+  height: 48px;
+}
+
+.small {
+  width: 72px;
+  height: 72px;
+}
+
+.medium {
+  width: 150px;
+  height: 48px;
+}
+
+.large {
+  width: 300px;
+  height: 48px;
+}
+
+.modal {
+  width: 120px;
+  height: 48px;
+}
+
+.numpad {
+  width: 72px;
+  height: 72px;
+  span {
+    font-size: $FONT-SIZE-SINGLE-EX-LARGE;
+    font-weight: bold;
+  }
+}
+
+.step {
+  width: $WIDTH-COUNTER;
+  height: $HEIGHT-COUNTER;
+}
