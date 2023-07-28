@@ -1,8 +1,16 @@
 import React from 'react'
 import './App.css'
 import Result from './components/Result'
-import CalButton from './components/Button'
-
+import Button from './components/Button'
+//TODO 数字を押したとき表示部分に表示できる
+//TODO 数字を押したとき桁数が増える
+//TODO 小数点以下も入力できる
+//TODO 四則演算ボタンを押したとき入力した数値と四則演算をuseStateで保存
+//TODO 2つ目の数値を保存
+//TODO ＝が押されたら計算を行う
+//TODO 計算結果を表示
+//TODO ACが押されたら全ての保存されたデータを破棄
+//TODO Cが押されたら2つ目の数値入力前（一つ目の数値と四則演算は保持）に戻る
 function App() {
   return (
     <React.Fragment>
@@ -11,36 +19,36 @@ function App() {
       </div>
       <div className="wrapper">
         <div className="ope">
-          <CalButton n={'AC'} />
-          <CalButton n={'C'} />
+          <Button n={'AC'} onClick={() => console.log('clicked AC')} />
+          <Button n={'C'} onClick={() => console.log('clicked C')} />
         </div>
         <div className="Button">
           <div className="button">
-            <CalButton n={7} />
-            <CalButton n={8} />
-            <CalButton n={9} />
+            <Button n={7} onClick={() => console.log('clicked 7')} />
+            <Button n={8} onClick={() => console.log('clicked 8')} />
+            <Button n={9} onClick={() => console.log('clicked 9')} />
           </div>
           <div className="button">
-            <CalButton n={4} />
-            <CalButton n={5} />
-            <CalButton n={6} />
+            <Button n={4} onClick={() => console.log('clicked 4')} />
+            <Button n={5} onClick={() => console.log('clicked 5')} />
+            <Button n={6} onClick={() => console.log('clicked 6')} />
           </div>
           <div className="button">
-            <CalButton n={1} />
-            <CalButton n={2} />
-            <CalButton n={3} />
+            <Button n={1} onClick={() => console.log('clicked 1')} />
+            <Button n={2} onClick={() => console.log('clicked 2')} />
+            <Button n={3} onClick={() => console.log('clicked 3')} />
           </div>
           <div className="button">
-            <CalButton n={0} />
-            <CalButton n={'.'} />
-            <CalButton n={'='} />
+            <Button n={0} onClick={() => console.log('clicked 0')} />
+            <Button n={'.'} onClick={() => console.log('clicked .')} />
+            <Button n={'='} onClick={() => console.log('clicked =')} />
           </div>
         </div>
         <div className="ope">
-          <CalButton n={'+'} />
-          <CalButton n={'-'} />
-          <CalButton n={'×'} />
-          <CalButton n={'÷'} />
+          <Button n={'+'} onClick={() => console.log('clicked +')} />
+          <Button n={'-'} onClick={() => console.log('clicked -')} />
+          <Button n={'×'} onClick={() => console.log('clicked ×')} />
+          <Button n={'÷'} onClick={() => console.log('clicked ÷')} />
         </div>
       </div>
     </React.Fragment>

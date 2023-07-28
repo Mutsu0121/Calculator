@@ -1,9 +1,7 @@
 import React from 'react'
 
-const Result = ({ result }: Props) => (
-  <div className="resultValue">{result}</div>
-)
-
-type Props = { result: string }
-
-export default Result
+type Props = { result: string; value: string }
+export default function Result({ result, value }: Props) {
+  const value = value
+  return <div className="resultValue">{result}</div>
+}

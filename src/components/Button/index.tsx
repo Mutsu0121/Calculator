@@ -1,7 +1,10 @@
 import React from 'react'
 
-const CalButton = ({ n }: Props) => <button>{n}</button>
+type Props = {
+  n: number | string
+  onClick: () => void
+}
 
-type Props = { n: number | string }
-
-export default CalButton
+export default function CalButton({ n, onClick }: Props) {
+  return <button onClick={onClick}>{n}</button>
+}
