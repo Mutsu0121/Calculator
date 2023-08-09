@@ -5,25 +5,62 @@ import Button from './components/parts/Button'
 //ok 数字を押したとき表示部分に表示できる
 //ok 数字を押したとき桁数(文字列)が増える
 //TODO ACが押されたら全ての保存されたデータを破棄
-//ok Cが押されたら現在入力していた数値入力前に戻る（一つ目の数値と四則演算が入力されていたら保持）
+//ok Cが押されたら現在入力していた数値の入力前に戻る（一つ目の数値と四則演算が入力されていたら保持）
 //ok 四則演算ボタンを押したとき、入力した数値と四則演算をuseStateで保存
 //ok 2つ目の数値を保存
 //
 //TODO ＝が押されたら計算を行う
 //TODO 計算結果を表示
 //
-//TODO小数点は一個だけ表示
+//TODO 小数点は一個だけ表示
 //TODO 最初に小数点を押したとき先頭に0がつく
-function App() {
+
+export type AppProps = {
+  /** レンジのvalue値。 */
+  value: string
+  /** 選択時に実行する処理。 */
+  onChange: (value: string) => void
+  /** 初期入力状態か。 */
+  firstInput: boolean
+  /** 初期入力状態か。 */
+  setFirstInput: (value: boolean) => void
+}
+
+function App({ value, onChange, firstInput, setFirstInput }: AppProps) {
   const initialValue = ''
   const initialView = ''
-  const Confirm = 0
+  const Ope = ''
   const [inputValue, setInputValue] = useState(initialValue)
   const [resultValue, setResultValue] = useState(initialValue)
   const [viewValue, setViewValue] = useState(initialView)
   console.log(inputValue, 'inputValue')
   console.log(resultValue, 'resultValue')
-  console.log(`${Confirm}`, 'Confirm')
+
+  const CalculatorAnswer = (type: string) => {
+    setFirstInput(false)
+    let v = value
+    let x = 0
+    switch (type) {
+      case 'add':
+        x = Number(inputValue) + Number(resultValue)
+        setViewValue(`${x}`)
+        break
+
+      default: {
+        // 0を入力、または初期入力の時、クリアする
+        if (v === `${initialValue}0` || firstInput) {
+          v = initialValue
+        }
+        v = type + initialValue
+      }
+    }
+    return v
+  }
+
+  const handleClick = (e: string) => {
+    const submitValue = CalculatorAnswer(e)
+    onChange(submitValue)
+  }
 
   return (
     <>
@@ -61,16 +98,18 @@ function App() {
           <div className="button">
             <Button char={0} onClick={() => setInputValue(inputValue + '0')} />
             <Button char={'.'} onClick={() => console.log('clicked .')} />
-            <Button char={'='} onClick={() => console.log('clicked =')} />
+            <Button char={'='} value="eq" onClick={() => handleClick('eq')} />
           </div>
         </div>
         <div className="ope">
           <Button
             char={'+'}
+            value="add"
             onClick={() => {
               setViewValue(inputValue + '+')
               setResultValue(inputValue)
               setInputValue(initialValue)
+              handleClick
             }}
           />
           <Button char={'-'} onClick={() => console.log('clicked -')} />
