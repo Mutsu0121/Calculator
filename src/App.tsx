@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css'
 import Result from './components/parts/Result'
 import Button from './components/parts/Button'
 //ok 数字を押したとき表示部分に表示できる
 //ok 数字を押したとき桁数(文字列)が増える
-//TODO ACが押されたら全ての保存されたデータを破棄
+//ok ACが押されたら全ての保存されたデータを破棄
 //ok Cが押されたら現在入力していた数値の入力前に戻る（一つ目の数値と四則演算が入力されていたら保持）
 //ok 四則演算ボタンを押したとき、入力した数値と四則演算をuseStateで保存
 //ok 2つ目の数値を保存
 //
-//TODO ＝が押されたら計算を行う
-//TODO 計算結果を表示
+//ok ＝が押されたら計算を行う
+//ok 計算結果を表示
 //
 //TODO 小数点は一個だけ表示
 //TODO 最初に小数点を押したとき先頭に0がつく
@@ -18,40 +18,50 @@ import Button from './components/parts/Button'
 export type AppProps = {
   /** レンジのvalue値。 */
   value: string
-  /** 選択時に実行する処理。 */
-  onChange: (value: string) => void
-  /** 初期入力状態か。 */
-  firstInput: boolean
-  /** 初期入力状態か。 */
-  setFirstInput: (value: boolean) => void
 }
 
-function App({ value, onChange, firstInput, setFirstInput }: AppProps) {
+function App({ value }: AppProps) {
   const initialValue = ''
   const initialView = ''
-  const Ope = ''
+  const initialOpe = ''
   const [inputValue, setInputValue] = useState(initialValue)
   const [resultValue, setResultValue] = useState(initialValue)
   const [viewValue, setViewValue] = useState(initialView)
+  const [inputOpe, setInputOpe] = useState(initialOpe)
   console.log(inputValue, 'inputValue')
   console.log(resultValue, 'resultValue')
+  console.log(inputOpe, 'inputOpe')
 
   const CalculatorAnswer = (type: string) => {
-    setFirstInput(false)
     let v = value
     let x = 0
     switch (type) {
       case 'add':
-        x = Number(inputValue) + Number(resultValue)
-        setViewValue(`${x}`)
+        x = Number(resultValue) + Number(inputValue)
+        setViewValue(resultValue + '+' + inputValue + '=')
+        setInputValue(`${x}`)
+        break
+
+      case 'sub':
+        x = Number(resultValue) - Number(inputValue)
+        setViewValue(resultValue + '-' + inputValue + '=')
+        setInputValue(`${x}`)
+        break
+
+      case 'mul':
+        x = Number(resultValue) * Number(inputValue)
+        setViewValue(resultValue + '×' + inputValue + '=')
+        setInputValue(`${x}`)
+        break
+
+      case 'div':
+        x = Number(resultValue) / Number(inputValue)
+        setViewValue(resultValue + '÷' + inputValue + '=')
+        setInputValue(`${x}`)
         break
 
       default: {
-        // 0を入力、または初期入力の時、クリアする
-        if (v === `${initialValue}0` || firstInput) {
-          v = initialValue
-        }
-        v = type + initialValue
+        v = initialValue
       }
     }
     return v
@@ -59,7 +69,6 @@ function App({ value, onChange, firstInput, setFirstInput }: AppProps) {
 
   const handleClick = (e: string) => {
     const submitValue = CalculatorAnswer(e)
-    onChange(submitValue)
   }
 
   return (
@@ -75,6 +84,7 @@ function App({ value, onChange, firstInput, setFirstInput }: AppProps) {
               setInputValue(initialValue)
               setResultValue(initialValue)
               setViewValue(initialView)
+              setInputOpe(initialOpe)
             }}
           />
           <Button char={'C'} onClick={() => setInputValue(initialValue)} />
@@ -98,23 +108,52 @@ function App({ value, onChange, firstInput, setFirstInput }: AppProps) {
           <div className="button">
             <Button char={0} onClick={() => setInputValue(inputValue + '0')} />
             <Button char={'.'} onClick={() => console.log('clicked .')} />
-            <Button char={'='} value="eq" onClick={() => handleClick('eq')} />
+            <Button
+              char={'='}
+              onClick={() => {
+                handleClick(inputOpe)
+                setInputOpe(initialOpe)
+              }}
+            />
           </div>
         </div>
         <div className="ope">
           <Button
             char={'+'}
-            value="add"
             onClick={() => {
+              setInputOpe('add')
               setViewValue(inputValue + '+')
               setResultValue(inputValue)
               setInputValue(initialValue)
-              handleClick
             }}
           />
-          <Button char={'-'} onClick={() => console.log('clicked -')} />
-          <Button char={'×'} onClick={() => console.log('clicked *')} />
-          <Button char={'÷'} onClick={() => console.log('clicked ÷')} />
+          <Button
+            char={'-'}
+            onClick={() => {
+              setInputOpe('sub')
+              setViewValue(inputValue + '-')
+              setResultValue(inputValue)
+              setInputValue(initialValue)
+            }}
+          />
+          <Button
+            char={'×'}
+            onClick={() => {
+              setInputOpe('mul')
+              setViewValue(inputValue + '×')
+              setResultValue(inputValue)
+              setInputValue(initialValue)
+            }}
+          />
+          <Button
+            char={'÷'}
+            onClick={() => {
+              setInputOpe('div')
+              setViewValue(inputValue + '÷')
+              setResultValue(inputValue)
+              setInputValue(initialValue)
+            }}
+          />
         </div>
       </div>
     </>

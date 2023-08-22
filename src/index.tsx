@@ -7,16 +7,7 @@ import reportWebVitals from './reportWebVitals'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-    <App
-      firstInput
-      onChange={function (value: string): void {
-        throw new Error('Function not implemented.')
-      }}
-      setFirstInput={function (value: boolean): void {
-        throw new Error('Function not implemented.')
-      }}
-      value={''}
-    />
+    <App value={''} />
   </React.StrictMode>
 )
 

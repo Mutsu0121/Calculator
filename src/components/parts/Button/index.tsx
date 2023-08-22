@@ -5,18 +5,13 @@ import noOperation from '../../../utils/noOperation'
 type Props = {
   char: string | number
   onClick: () => void
-  value?: string
 }
 
-export default function Button({
-  char,
-  value = undefined,
-  onClick = noOperation,
-}: Props) {
-  const refValue = useRef({ value, onClick })
+export default function Button({ char, onClick = noOperation }: Props) {
+  const refValue = useRef({ onClick })
   useEffect(() => {
-    refValue.current = { value, onClick }
-  }, [value, onClick])
+    refValue.current = { onClick }
+  }, [onClick])
 
   const handleClick = useCallback(() => {
     refValue.current.onClick()
