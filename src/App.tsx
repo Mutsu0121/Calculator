@@ -67,10 +67,6 @@ function App({ value }: AppProps) {
     return v
   }
 
-  const handleClick = (e: string) => {
-    const submitValue = CalculatorAnswer(e)
-  }
-
   return (
     <>
       <div className="result">
@@ -107,11 +103,14 @@ function App({ value }: AppProps) {
           </div>
           <div className="button">
             <Button char={0} onClick={() => setInputValue(inputValue + '0')} />
-            <Button char={'.'} onClick={() => console.log('clicked .')} />
+            <Button
+              char={'.'}
+              onClick={() => setInputValue(inputValue + '.')}
+            />
             <Button
               char={'='}
               onClick={() => {
-                handleClick(inputOpe)
+                CalculatorAnswer(inputOpe)
                 setInputOpe(initialOpe)
               }}
             />
